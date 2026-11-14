@@ -1,0 +1,25 @@
+<div class="app-container">
+  <header class="header">
+    <h1>{{ title() }}</h1>
+  </header>
+
+  <div class="main-layout">
+    <nav class="sidebar">
+      <ul>
+        <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+        <li><a routerLink="/system" routerLinkActive="active">System Status</a></li>
+        <li><a routerLink="/interfaces" routerLinkActive="active">Network Interfaces</a></li>
+        <li><a routerLink="/routes" routerLinkActive="active">Routes</a></li>
+        <li><a routerLink="/firewall" routerLinkActive="active">Firewall</a></li>
+        <li><a routerLink="/dhcp" routerLinkActive="active">DHCP</a></li>
+        <li><a routerLink="/dns" routerLinkActive="active">DNS</a></li>
+        <li><a routerLink="/traffic" routerLinkActive="active">Traffic</a></li>
+      </ul>
+    </nav>
+
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
+

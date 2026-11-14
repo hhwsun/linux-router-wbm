@@ -1,0 +1,58 @@
+<div class="dashboard">
+  <h2>Dashboard</h2>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+
+  <div *ngIf="!loading" class="dashboard-grid">
+    <div class="card">
+      <h3>System Status</h3>
+      <div class="card-content" *ngIf="systemStatus">
+        <p><strong>Uptime:</strong> {{ systemStatus.uptime }}</p>
+        <p><strong>Load Average:</strong> {{ systemStatus.load }}</p>
+      </div>
+      <a routerLink="/system" class="card-link">View Details →</a>
+    </div>
+
+    <div class="card">
+      <h3>Network Interfaces</h3>
+      <div class="card-content">
+        <p><strong>Total Interfaces:</strong> {{ interfaces.length }}</p>
+        <p><strong>Active:</strong> {{ interfaces.filter(i => i.operstate === 'UP').length }}</p>
+      </div>
+      <a routerLink="/interfaces" class="card-link">View Details →</a>
+    </div>
+
+    <div class="card">
+      <h3>Firewall</h3>
+      <div class="card-content">
+        <p>Manage iptables rules and NAT configuration</p>
+      </div>
+      <a routerLink="/firewall" class="card-link">View Details →</a>
+    </div>
+
+    <div class="card">
+      <h3>DHCP Server</h3>
+      <div class="card-content">
+        <p>View active leases and DHCP configuration</p>
+      </div>
+      <a routerLink="/dhcp" class="card-link">View Details →</a>
+    </div>
+
+    <div class="card">
+      <h3>DNS</h3>
+      <div class="card-content">
+        <p>Manage DNS configuration and hosts file</p>
+      </div>
+      <a routerLink="/dns" class="card-link">View Details →</a>
+    </div>
+
+    <div class="card">
+      <h3>Traffic Monitoring</h3>
+      <div class="card-content">
+        <p>View network traffic statistics and connections</p>
+      </div>
+      <a routerLink="/traffic" class="card-link">View Details →</a>
+    </div>
+  </div>
+</div>
+

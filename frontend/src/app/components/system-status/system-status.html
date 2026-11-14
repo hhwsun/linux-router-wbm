@@ -1,0 +1,36 @@
+<div class="system-status">
+  <div class="header-row">
+    <h2>System Status</h2>
+    <div class="controls">
+      <button (click)="loadStatus()" [disabled]="loading">Refresh</button>
+      <button (click)="toggleAutoRefresh()" [class.active]="autoRefresh">
+        {{ autoRefresh ? 'Stop' : 'Auto' }} Refresh
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+
+  <div *ngIf="!loading && status" class="status-grid">
+    <div class="status-card">
+      <h3>Uptime</h3>
+      <p class="value">{{ status.uptime }}</p>
+    </div>
+
+    <div class="status-card">
+      <h3>Load Average</h3>
+      <pre class="value">{{ status.load }}</pre>
+    </div>
+
+    <div class="status-card full-width">
+      <h3>CPU Usage</h3>
+      <pre class="value">{{ status.cpu }}</pre>
+    </div>
+
+    <div class="status-card full-width">
+      <h3>Memory Usage</h3>
+      <pre class="value">{{ status.memory }}</pre>
+    </div>
+  </div>
+</div>
+

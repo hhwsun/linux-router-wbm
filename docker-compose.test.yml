@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  router-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: router-test-backend
+    ports:
+      - "3000:3000"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    privileged: true  # Needed for iptables
+    networks:
+      - router-test-net
+    volumes:
+      - ./backend:/app/backend:ro
+
+  frontend-dev:
+    image: node:20-alpine
+    container_name: router-test-frontend
+    working_dir: /app
+    command: sh -c "npm install && npm start"
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend:/app
+    networks:
+      - router-test-net
+    depends_on:
+      - router-backend
+
+networks:
+  router-test-net:
+    driver: bridge

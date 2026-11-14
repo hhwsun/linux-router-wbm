@@ -1,0 +1,58 @@
+<div class="network-interfaces">
+  <div class="header-row">
+    <h2>Network Interfaces</h2>
+    <button (click)="loadInterfaces()" [disabled]="loading">Refresh</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+
+  <div *ngIf="!loading && interfaces.length === 0" class="empty">
+    No network interfaces found
+  </div>
+
+  <div *ngIf="!loading && interfaces.length > 0" class="interfaces-list">
+    <div *ngFor="let iface of interfaces" class="interface-card">
+      <div class="interface-header">
+        <h3>{{ iface.ifname }}</h3>
+        <span class="status" [class.up]="iface.operstate === 'UP'" [class.down]="iface.operstate !== 'UP'">
+          {{ iface.operstate || 'UNKNOWN' }}
+        </span>
+      </div>
+
+      <div class="interface-details">
+        <div class="detail-row">
+          <span class="label">MAC Address:</span>
+          <span class="value">{{ iface.address || 'N/A' }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">IP Addresses:</span>
+          <span class="value">{{ getAddresses(iface) }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">MTU:</span>
+          <span class="value">{{ iface.mtu || 'N/A' }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Type:</span>
+          <span class="value">{{ iface.link_type || 'N/A' }}</span>
+        </div>
+      </div>
+
+      <div class="interface-actions">
+        <button
+          (click)="setInterfaceState(iface.ifname, 'up')"
+          [disabled]="iface.operstate === 'UP'"
+          class="btn-success">
+          Bring Up
+        </button>
+        <button
+          (click)="setInterfaceState(iface.ifname, 'down')"
+          [disabled]="iface.operstate !== 'UP'"
+          class="btn-danger">
+          Bring Down
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
